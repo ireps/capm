@@ -1,6 +1,17 @@
 {
     "build": {
         "target": ".",
-        "tasks": []
+        "tasks": [
+            {
+                "for": "node-cf",
+                "src": "srv",
+                "options": {
+                    "model": [
+                        "srv",
+                        "db"
+                    ]
+                }
+            }
+        ]
     }
 }

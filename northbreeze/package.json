@@ -7,7 +7,10 @@
     "engines": {
         "node": "^8.9"
     },
-    "files": [],
+    "files": [
+        "srv",
+        "db"
+    ],
     "dependencies": {
         "@sap/cds": "^3.5.2",
         "express": "^4.16.4"
@@ -16,5 +19,6 @@
         "start": "cds run",
         "build": "cds build/all --clean",
         "deploy": "cds deploy"
-    }
+    },
+    "cds": {}
 }
