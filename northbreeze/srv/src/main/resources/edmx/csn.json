@@ -1,0 +1,451 @@
+{
+  "definitions": {
+    "Breezy": {
+      "kind": "service",
+      "@source": "srv/cat-service.cds"
+    },
+    "Breezy.Products": {
+      "kind": "entity",
+      "source": "northbreeze.Products",
+      "elements": {
+        "ID": {
+          "origin": "northbreeze.Products..ID",
+          "indexNo": 1,
+          "value": {
+            "=": "Products.ID"
+          },
+          "key": true,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "origin": "northbreeze.Products..name",
+          "indexNo": 2,
+          "value": {
+            "=": "Products.name"
+          },
+          "type": "cds.String",
+          "@cds.persistence.name": "NAME"
+        },
+        "supplier": {
+          "origin": "northbreeze.Products..supplier",
+          "indexNo": 3,
+          "value": {
+            "=": "Products.supplier"
+          },
+          "type": "cds.Association",
+          "target": "Breezy.Suppliers",
+          "foreignKeys": {
+            "ID": {
+              "origin": "northbreeze.Products..supplier.ID",
+              "indexNo": 1,
+              "path": "ID",
+              "generatedFieldName": "supplier_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "redirected": true,
+          "@cds.persistence.name": "SUPPLIER"
+        },
+        "category": {
+          "origin": "northbreeze.Products..category",
+          "indexNo": 4,
+          "value": {
+            "=": "Products.category"
+          },
+          "type": "cds.Association",
+          "target": "Breezy.Categories",
+          "foreignKeys": {
+            "ID": {
+              "origin": "northbreeze.Products..category.ID",
+              "indexNo": 1,
+              "path": "ID",
+              "generatedFieldName": "category_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "redirected": true,
+          "@cds.persistence.name": "CATEGORY"
+        },
+        "unitquantity": {
+          "origin": "northbreeze.Products..unitquantity",
+          "indexNo": 5,
+          "value": {
+            "=": "Products.unitquantity"
+          },
+          "type": "cds.String",
+          "length": 20,
+          "@cds.persistence.name": "UNITQUANTITY"
+        },
+        "unitprice": {
+          "origin": "northbreeze.Products..unitprice",
+          "indexNo": 6,
+          "value": {
+            "=": "Products.unitprice"
+          },
+          "type": "cds.Decimal",
+          "precision": 19,
+          "scale": 4,
+          "@cds.persistence.name": "UNITPRICE"
+        },
+        "unitsinstock": {
+          "origin": "northbreeze.Products..unitsinstock",
+          "indexNo": 7,
+          "value": {
+            "=": "Products.unitsinstock"
+          },
+          "type": "cds.Integer",
+          "@cds.persistence.name": "UNITSINSTOCK"
+        },
+        "unitsonorder": {
+          "origin": "northbreeze.Products..unitsonorder",
+          "indexNo": 8,
+          "value": {
+            "=": "Products.unitsonorder"
+          },
+          "type": "cds.Integer",
+          "@cds.persistence.name": "UNITSONORDER"
+        },
+        "reorderlevel": {
+          "origin": "northbreeze.Products..reorderlevel",
+          "indexNo": 9,
+          "value": {
+            "=": "Products.reorderlevel"
+          },
+          "type": "cds.Integer",
+          "@cds.persistence.name": "REORDERLEVEL"
+        },
+        "discontinued": {
+          "origin": "northbreeze.Products..discontinued",
+          "indexNo": 10,
+          "value": {
+            "=": "Products.discontinued"
+          },
+          "type": "cds.Boolean",
+          "@cds.persistence.name": "DISCONTINUED"
+        },
+        "supplier_ID": {
+          "type": "cds.Integer",
+          "value": {
+            "=": "Products.supplier_ID"
+          },
+          "origin": "northbreeze.Products..supplier_ID",
+          "@odata.foreignKey4": "supplier",
+          "@cds.persistence.name": "SUPPLIER_ID"
+        },
+        "category_ID": {
+          "type": "cds.Integer",
+          "value": {
+            "=": "Products.category_ID"
+          },
+          "origin": "northbreeze.Products..category_ID",
+          "@odata.foreignKey4": "category",
+          "@cds.persistence.name": "CATEGORY_ID"
+        }
+      },
+      "@cds.persistence.name": "BREEZY_PRODUCTS"
+    },
+    "Breezy.Suppliers": {
+      "kind": "entity",
+      "source": "northbreeze.Suppliers",
+      "elements": {
+        "ID": {
+          "origin": "northbreeze.Suppliers..ID",
+          "indexNo": 1,
+          "value": {
+            "=": "Suppliers.ID"
+          },
+          "key": true,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "origin": "northbreeze.Suppliers..name",
+          "indexNo": 2,
+          "value": {
+            "=": "Suppliers.name"
+          },
+          "type": "cds.String",
+          "length": 40,
+          "@cds.persistence.name": "NAME"
+        },
+        "country": {
+          "origin": "northbreeze.Suppliers..country",
+          "indexNo": 3,
+          "value": {
+            "=": "Suppliers.country"
+          },
+          "type": "cds.String",
+          "length": 15,
+          "@cds.persistence.name": "COUNTRY"
+        },
+        "products": {
+          "origin": "northbreeze.Suppliers..products",
+          "indexNo": 4,
+          "value": {
+            "=": "Suppliers.products"
+          },
+          "type": "cds.Association",
+          "target": "Breezy.Products",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "onCond": {
+            "op": "=",
+            "args": [
+              {
+                "=": "products.supplier"
+              },
+              {
+                "=": "$self"
+              }
+            ]
+          },
+          "redirected": true,
+          "@cds.persistence.name": "PRODUCTS"
+        }
+      },
+      "@cds.persistence.name": "BREEZY_SUPPLIERS"
+    },
+    "Breezy.Categories": {
+      "kind": "entity",
+      "source": "northbreeze.Categories",
+      "elements": {
+        "ID": {
+          "origin": "northbreeze.Categories..ID",
+          "indexNo": 1,
+          "value": {
+            "=": "Categories.ID"
+          },
+          "key": true,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "origin": "northbreeze.Categories..name",
+          "indexNo": 2,
+          "value": {
+            "=": "Categories.name"
+          },
+          "type": "cds.String",
+          "length": 15,
+          "@cds.persistence.name": "NAME"
+        },
+        "description": {
+          "origin": "northbreeze.Categories..description",
+          "indexNo": 3,
+          "value": {
+            "=": "Categories.description"
+          },
+          "type": "cds.String",
+          "@cds.persistence.name": "DESCRIPTION"
+        },
+        "products": {
+          "origin": "northbreeze.Categories..products",
+          "indexNo": 4,
+          "value": {
+            "=": "Categories.products"
+          },
+          "type": "cds.Association",
+          "target": "Breezy.Products",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "onCond": {
+            "op": "=",
+            "args": [
+              {
+                "=": "products.category"
+              },
+              {
+                "=": "$self"
+              }
+            ]
+          },
+          "redirected": true,
+          "@cds.persistence.name": "PRODUCTS"
+        }
+      },
+      "@cds.persistence.name": "BREEZY_CATEGORIES"
+    },
+    "northbreeze.Products": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "indexNo": 1,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "indexNo": 2,
+          "type": "cds.String",
+          "@cds.persistence.name": "NAME"
+        },
+        "supplier": {
+          "indexNo": 3,
+          "type": "cds.Association",
+          "target": "northbreeze.Suppliers",
+          "foreignKeys": {
+            "ID": {
+              "path": "ID",
+              "indexNo": 1,
+              "generatedFieldName": "supplier_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "@cds.persistence.name": "SUPPLIER"
+        },
+        "category": {
+          "indexNo": 4,
+          "type": "cds.Association",
+          "target": "northbreeze.Categories",
+          "foreignKeys": {
+            "ID": {
+              "path": "ID",
+              "indexNo": 1,
+              "generatedFieldName": "category_ID",
+              "@cds.persistence.name": "ID"
+            }
+          },
+          "@cds.persistence.name": "CATEGORY"
+        },
+        "unitquantity": {
+          "indexNo": 5,
+          "type": "cds.String",
+          "length": 20,
+          "@cds.persistence.name": "UNITQUANTITY"
+        },
+        "unitprice": {
+          "indexNo": 6,
+          "type": "cds.Decimal",
+          "precision": 19,
+          "scale": 4,
+          "@cds.persistence.name": "UNITPRICE"
+        },
+        "unitsinstock": {
+          "indexNo": 7,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "UNITSINSTOCK"
+        },
+        "unitsonorder": {
+          "indexNo": 8,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "UNITSONORDER"
+        },
+        "reorderlevel": {
+          "indexNo": 9,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "REORDERLEVEL"
+        },
+        "discontinued": {
+          "indexNo": 10,
+          "type": "cds.Boolean",
+          "@cds.persistence.name": "DISCONTINUED"
+        },
+        "supplier_ID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "supplier",
+          "@cds.persistence.name": "SUPPLIER_ID"
+        },
+        "category_ID": {
+          "type": "cds.Integer",
+          "@odata.foreignKey4": "category",
+          "@cds.persistence.name": "CATEGORY_ID"
+        }
+      },
+      "@cds.persistence.name": "NORTHBREEZE_PRODUCTS"
+    },
+    "northbreeze.Suppliers": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "indexNo": 1,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "indexNo": 2,
+          "type": "cds.String",
+          "length": 40,
+          "@cds.persistence.name": "NAME"
+        },
+        "country": {
+          "indexNo": 3,
+          "type": "cds.String",
+          "length": 15,
+          "@cds.persistence.name": "COUNTRY"
+        },
+        "products": {
+          "indexNo": 4,
+          "type": "cds.Association",
+          "target": "northbreeze.Products",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "onCond": {
+            "op": "=",
+            "args": [
+              {
+                "=": "products.supplier"
+              },
+              {
+                "=": "$self"
+              }
+            ]
+          },
+          "@cds.persistence.name": "PRODUCTS"
+        }
+      },
+      "@cds.persistence.name": "NORTHBREEZE_SUPPLIERS"
+    },
+    "northbreeze.Categories": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "indexNo": 1,
+          "type": "cds.Integer",
+          "@cds.persistence.name": "ID"
+        },
+        "name": {
+          "indexNo": 2,
+          "type": "cds.String",
+          "length": 15,
+          "@cds.persistence.name": "NAME"
+        },
+        "description": {
+          "indexNo": 3,
+          "type": "cds.String",
+          "@cds.persistence.name": "DESCRIPTION"
+        },
+        "products": {
+          "indexNo": 4,
+          "type": "cds.Association",
+          "target": "northbreeze.Products",
+          "cardinality": {
+            "targetMax": "*"
+          },
+          "onCond": {
+            "op": "=",
+            "args": [
+              {
+                "=": "products.category"
+              },
+              {
+                "=": "$self"
+              }
+            ]
+          },
+          "@cds.persistence.name": "PRODUCTS"
+        }
+      },
+      "@cds.persistence.name": "NORTHBREEZE_CATEGORIES"
+    }
+  },
+  "version": {
+    "csn": "0.1.0"
+  },
+  "@sql_mapping": "plain"
+}

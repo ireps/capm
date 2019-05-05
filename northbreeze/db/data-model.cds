@@ -1,9 +1,9 @@
 namespace northbreeze;
 
 entity Products {
-  key ID       : Integer;
-  name         : String;
-  supplier     : Association to Suppliers;
+    key ID       : Integer;
+    name         : String;
+    supplier     : Association to Suppliers;
 	category     : Association to Categories;
 	unitquantity : String(20);
 	unitprice    : Decimal(19,4);
@@ -24,5 +24,5 @@ entity Categories {
 	key ID       : Integer;
 	name         : String(15);
 	description  : String;
-	products     : Association to many Products on products.supplier = $self
+	products     : Association to many Products on products.category = $self
 }

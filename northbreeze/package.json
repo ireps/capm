@@ -20,5 +20,21 @@
         "build": "cds build/all --clean",
         "deploy": "cds deploy"
     },
-    "cds": {}
+    "cds": {
+		"requires": {
+			"db": {
+				"kind": "sqlite",
+				"model": [
+					"db",
+					"srv"
+				],
+				"credentials": {
+					"database": "northbreeze.db"
+				}
+			}
+		}
+   	},
+    "devDependencies": {
+        "sqlite3": "^4.0.6"
+    }
 }
